@@ -10,7 +10,6 @@ use crossterm::{
 };
 use ratatui::{
     prelude::{Constraint, CrosstermBackend},
-    style::Style,
     symbols::block,
     widgets::{Block, Borders, List, ListItem, Padding, Paragraph, Row, Table},
     Terminal,
@@ -50,7 +49,13 @@ fn main() -> Result<(), io::Error> {
             Constraint::Length(5),
             Constraint::Length(5),
             Constraint::Length(5),
-        ]);
+        ])
+        .block(Block::default().borders(Borders::ALL).padding(Padding {
+            left: 4,
+            right: 4,
+            top: 5,
+            bottom: 2,
+        }));
 
         let block = Block::default().title("test").borders(Borders::ALL);
         //creates a textblock widget for later use
@@ -69,8 +74,8 @@ fn main() -> Result<(), io::Error> {
         let _block_inner = block.inner(f.size());
 
         f.render_widget(block, size);
-        //f.render_widget(textblock, block_inner);
-        //f.render_widget(list_1, block_inner);
+        f.render_widget(_textblock, _block_inner);
+        f.render_widget(_list_1, _block_inner);
         f.render_widget(ree, _block_inner)
     })?;
     pause();
